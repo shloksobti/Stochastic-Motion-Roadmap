@@ -14,8 +14,8 @@
       <file leaf-file-name="SMR.py" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/SMR.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="337">
-              <caret line="63" column="39" lean-forward="false" selection-start-line="63" selection-start-column="39" selection-end-line="63" selection-end-column="39" />
+            <state relative-caret-position="683">
+              <caret line="93" column="6" lean-forward="true" selection-start-line="93" selection-start-column="6" selection-end-line="93" selection-end-column="6" />
               <folding>
                 <element signature="e#0#33#0" expanded="true" />
               </folding>
@@ -26,8 +26,8 @@
       <file leaf-file-name="Objects.py" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/SMR_helpers/Objects.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="340">
-              <caret line="10" column="0" lean-forward="true" selection-start-line="10" selection-start-column="0" selection-end-line="10" selection-end-column="0" />
+            <state relative-caret-position="983">
+              <caret line="41" column="37" lean-forward="false" selection-start-line="41" selection-start-column="37" selection-end-line="41" selection-end-column="37" />
               <folding />
             </state>
           </provider>
@@ -42,12 +42,18 @@
       </list>
     </option>
   </component>
+  <component name="FindInProjectRecents">
+    <findStrings>
+      <find>SMR</find>
+    </findStrings>
+  </component>
   <component name="IdeDocumentHistory">
     <option name="CHANGED_PATHS">
       <list>
         <option value="$PROJECT_DIR$/SMR/State.py" />
         <option value="$PROJECT_DIR$/SMR/Objects.py" />
         <option value="$PROJECT_DIR$/SMR/SMR.py" />
+        <option value="$PROJECT_DIR$/SMR_helpers/Objects.py" />
         <option value="$PROJECT_DIR$/SMR.py" />
       </list>
     </option>
@@ -211,16 +217,16 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/SMR_helpers/Objects.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="340">
-          <caret line="10" column="0" lean-forward="true" selection-start-line="10" selection-start-column="0" selection-end-line="10" selection-end-column="0" />
+        <state relative-caret-position="983">
+          <caret line="41" column="37" lean-forward="false" selection-start-line="41" selection-start-column="37" selection-end-line="41" selection-end-column="37" />
           <folding />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/SMR.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="337">
-          <caret line="63" column="39" lean-forward="false" selection-start-line="63" selection-start-column="39" selection-end-line="63" selection-end-column="39" />
+        <state relative-caret-position="683">
+          <caret line="93" column="6" lean-forward="true" selection-start-line="93" selection-start-column="6" selection-end-line="93" selection-end-column="6" />
           <folding>
             <element signature="e#0#33#0" expanded="true" />
           </folding>

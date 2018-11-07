@@ -7,6 +7,12 @@ from math import pi
 m = 100 # number of iterations to get transition probabilities
 n = 50 # number of valid samples states (50000)
 
+# means and stdev of arc length and radius from the Paper
+mu_al = 0
+sig_al = 1
+mu_r = 0
+sig_r = 1
+
 
 def initialize():
     # initialize space bounds
@@ -28,7 +34,7 @@ def sample(cspace):
 
         r_state = State(x,y,theta,b)
         valid_states.add(r_state)
-    print(valid_states)
+
     return valid_states
 
 
@@ -37,18 +43,25 @@ def get_nearest_neighbor(valid_states, state):
     max_idx = 0
     for idx, state in enumerate(valid_states):
         #insert equation
-        result = 1+2
-        if result > max_distance:
-            max_distance = result
+        distance = 1+2
+        if distance > max_distance:
+            max_distance = distance
             max_idx = idx
 
     nearest_neighbor = valid_states[max_idx]
+
     return nearest_neighbor
 
 
+def collides(cspace, state):
+    collision = False
+    obstacles = cspace.obstacles
+    # check whether state is in collision (whether a point / square is in a rectangular obstacle)
+    return collision
+
+
 def get_transition_probabilities(cspace, valid_states, controlvect):
-    tp = {}
-    # initialize tp dict
+    tp = {}  # transition probabilities table
 
     for state in valid_states:
         tp[state] = {}
@@ -57,10 +70,14 @@ def get_transition_probabilities(cspace, valid_states, controlvect):
             state_count = defaultdict(int)
             for idx in range(m):
                 # get arc length and arc radius from gaussian dist with prespecified mean and stdev
-                arc_length = 0.3
-                arc_radius = 2
+                arc_length = random.gauss(mu_al, sig_al)
+                arc_radius = random.gauss(mu_r, sig_r)
+                # get the next state
                 next_state = state.applymotion(arc_length, arc_radius, control)
-                nearest_state = get_nearest_neighbor(valid_states, next_state)
+                nearest_state = None  # obstacle state representation
+                if not collides(cspace, next_state):
+                    # get the nearest neighbor in valid states to the next state
+                    nearest_state = get_nearest_neighbor(valid_states, next_state)
                 state_count[nearest_state] += 1
             for next_state in state_count.keys():
                 tp[state][control][next_state] = state_count[next_state]/m
@@ -78,5 +95,6 @@ if __name__ == "__main__":
     cspace, start, goal, controlvect = initialize()
     valid_states = sample(cspace)
 
-    #get_transition_probabilities(cspace, valid_states, controlvect)
+    tp_map = get_transition_probabilities(cspace, valid_states, controlvect)
+    print(tp_map)
     #policy = get_policy()

@@ -36,3 +36,7 @@ class CSpace:
         self.theta_max = theta_max
         self.b_min = b_min
         self.b_max = b_max
+        self.obstacles = []
+
+    def set_obstacles(self, obstaclevect):
+        self.obstacles = obstaclevect
