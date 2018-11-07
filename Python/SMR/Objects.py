@@ -7,6 +7,7 @@ class State:
         self.y = y
         self.theta = theta
         self.b = b
+        self.v = 0
 
     def to_string(self):
         print("x = ", self.x, ", y =", self.y, ", theta =", self.theta, ", direction =", self.b, "\n")
