@@ -25,15 +25,22 @@ def initialize():
 
 def sample(cspace):
     # sample n valid states from CSpace
-    valid_states = set()
-    for i in range(n):
+    valid_states = []
+    idx = 0
+    while idx<n:
         x = random.uniform(cspace.x_min, cspace.x_max)
         y = random.uniform(cspace.y_min, cspace.y_max)
         theta = random.uniform(cspace.theta_min, cspace.theta_max)
         b = random.choice([0,1])
 
         r_state = State(x,y,theta,b)
-        valid_states.add(r_state)
+
+        if r_state in valid_states:
+            continue
+        else:
+            valid_states.append(r_state)
+            idx += 1
+
 
     return valid_states
 
@@ -73,7 +80,7 @@ def get_transition_probabilities(cspace, valid_states, controlvect):
                 arc_length = random.gauss(mu_al, sig_al)
                 arc_radius = random.gauss(mu_r, sig_r)
                 # get the next state
-                next_state = state.applymotion(arc_length, arc_radius, control)
+                next_state = state.apply_motion(arc_length, arc_radius, control)
                 nearest_state = None  # obstacle state representation
                 if not collides(cspace, next_state):
                     # get the nearest neighbor in valid states to the next state
