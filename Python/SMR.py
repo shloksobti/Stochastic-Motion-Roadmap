@@ -1,4 +1,5 @@
-from SMR.Objects import *
+from SMR_helpers.Objects import *
+
 from collections import defaultdict
 import random
 from math import pi
@@ -15,6 +16,7 @@ def initialize():
     controlvect = [0, 1]
     return cspace, start, goal, controlvect
 
+
 def sample(cspace):
     # sample n valid states from CSpace
     valid_states = set()
@@ -26,8 +28,9 @@ def sample(cspace):
 
         r_state = State(x,y,theta,b)
         valid_states.add(r_state)
-
+    print(valid_states)
     return valid_states
+
 
 def get_nearest_neighbor(valid_states, state):
     max_distance = 0
@@ -41,6 +44,7 @@ def get_nearest_neighbor(valid_states, state):
 
     nearest_neighbor = valid_states[max_idx]
     return nearest_neighbor
+
 
 def get_transition_probabilities(cspace, valid_states, controlvect):
     tp = {}
@@ -63,14 +67,16 @@ def get_transition_probabilities(cspace, valid_states, controlvect):
 
     return tp
 
+
 def get_policy():
     policy = {}
     return policy
 
 
 
-if __name__ == "main":
+if __name__ == "__main__":
     cspace, start, goal, controlvect = initialize()
     valid_states = sample(cspace)
-    get_transition_probabilities(cspace, valid_states, controlvect)
-    policy = get_policy()
+
+    #get_transition_probabilities(cspace, valid_states, controlvect)
+    #policy = get_policy()
