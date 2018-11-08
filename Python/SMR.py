@@ -41,16 +41,14 @@ def sample(cspace):
             valid_states.append(r_state)
             idx += 1
 
-
     return valid_states
 
 
 def get_nearest_neighbor(valid_states, state):
     max_distance = 0
     max_idx = 0
-    for idx, state in enumerate(valid_states):
-        #insert equation
-        distance = 1+2
+    for idx, valid_state in enumerate(valid_states):
+        distance = state.get_distance(valid_state)
         if distance > max_distance:
             max_distance = distance
             max_idx = idx
