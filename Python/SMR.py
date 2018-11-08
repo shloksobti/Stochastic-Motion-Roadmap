@@ -25,7 +25,7 @@ def initialize():
 
 def sample(cspace):
     # sample n valid states from CSpace
-    valid_states = []
+    valid_states = [start, goal]
     idx = 0
     while idx<n:
         x = random.uniform(cspace.x_min, cspace.x_max)
@@ -90,8 +90,8 @@ def get_transition_probabilities(cspace, valid_states, controlvect):
 
 def value_iteration(valid_states):
 
-    epsilon = 0.1; #use some epsilon
-    diff = []
+    epsilon = 0.1 #use some epsilon
+    diff = [] #initialize list
     while max(diff) > epsilon:
         for idx, state in enumerate(valid_states):
             #value iteration function
@@ -105,7 +105,9 @@ def get_policy():
     policy = {}
     return policy
 
-
+def get_path():
+    path = []
+    return path
 
 if __name__ == "__main__":
     cspace, start, goal, controlvect = initialize()
