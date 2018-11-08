@@ -40,7 +40,6 @@ def sample(cspace):
         else:
             valid_states.append(r_state)
             idx += 1
-
     return valid_states
 
 
@@ -88,6 +87,18 @@ def get_transition_probabilities(cspace, valid_states, controlvect):
                 tp[state][control][next_state] = state_count[next_state]/m
 
     return tp
+
+def value_iteration(valid_states):
+
+    epsilon = 0.1; #use some epsilon
+    diff = []
+    while max(diff) > epsilon:
+        for idx, state in enumerate(valid_states):
+            #value iteration function
+            new_v =  #value formula
+            diff[idx] = new_v - state.v
+            state.v = new_v
+    return
 
 
 def get_policy():
