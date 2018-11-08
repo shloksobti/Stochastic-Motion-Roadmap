@@ -95,7 +95,7 @@ def get_transition_probabilities(cspace, valid_states, controlvect):
     return tp
 
 
-def value_iteration(valid_states):
+def value_iteration(valid_states, tp):
 
     epsilon = 0.1 #use some epsilon
     diff = [] #initialize list
@@ -107,17 +107,17 @@ def value_iteration(valid_states):
             q_ast_left = tp[state][0].keys #list of possible states acheived
             P_V_left = 0
             for stt in q_ast_left:
-                P_V_left = P_V_left + (tp[state][0][st] * stt.v)
+                P_V_left = P_V_left + (tp[state][0][stt] * stt.v)
 
             # Right Control
             q_ast_right = tp[state][1].keys
             P_V_right = 0
             for stt in q_ast_right:
-                P_V_right = P_V_right + (tp[state][0][st] * stt.v)
+                P_V_right = P_V_right + (tp[state][0][stt] * stt.v)
 
-            P_V = max(P_V_left, P_V_right)
+            P_V = max(P_V_left, P_V_right) # Max PV for both the controls
 
-            new_v = state.v + P_V
+            new_v = state.r + P_V
             diff[idx] = new_v - state.v
             state.v = new_v
     return
