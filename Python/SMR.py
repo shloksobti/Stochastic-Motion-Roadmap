@@ -17,11 +17,14 @@ sig_r = 1
 def initialize():
     # initialize space bounds
     cspace = CSpace(-15, 15, -15, 15, -pi/4, pi/4, 0, 1)
-    start = State(0, 0, 0, 0)
-    goal = State(10, 10, 0, 0)
+    start = State(0, 0, 0, 0, 0, 0)
+    goal = State(10, 10, 0, 0, 0, 1)
     controlvect = [0, 1]
     return cspace, start, goal, controlvect
 
+def path_collides(cspace, path):
+
+    return
 
 def sample(cspace):
     # sample n valid states from CSpace
@@ -99,7 +102,22 @@ def value_iteration(valid_states):
     while max(diff) > epsilon:
         for idx, state in enumerate(valid_states):
             #value iteration function
-            new_v =  #value formula
+
+            # Left control
+            q_ast_left = tp[state][0].keys #list of possible states acheived
+            P_V_left = 0
+            for stt in q_ast_left:
+                P_V_left = P_V_left + (tp[state][0][st] * stt.v)
+
+            # Right Control
+            q_ast_right = tp[state][1].keys
+            P_V_right = 0
+            for stt in q_ast_right:
+                P_V_right = P_V_right + (tp[state][0][st] * stt.v)
+
+            P_V = max(P_V_left, P_V_right)
+
+            new_v = state.v + P_V
             diff[idx] = new_v - state.v
             state.v = new_v
     return

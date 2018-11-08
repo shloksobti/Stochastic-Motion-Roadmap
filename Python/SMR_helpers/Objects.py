@@ -2,12 +2,13 @@
 
 # State class
 class State:
-    def __init__(self, x, y, theta, b):
+    def __init__(self, x, y, theta, b, v=0, r=0):
         self.x = x
         self.y = y
         self.theta = theta
         self.b = b
         self.v = 0
+        self.r = 0
 
     def to_string(self):
         print("x = ", self.x, ", y =", self.y, ", theta =", self.theta, ", direction =", self.b, "\n")
@@ -24,6 +25,12 @@ class State:
         # get distance to some state
         return distance
 
+class Path:
+    def __init__(self, state_a, state_b, arc_length, radius):
+        self.state_a = None
+        self.state_b = None
+        self.arc_length = None
+        self.radius = None
 
 # Space class
 class CSpace:
