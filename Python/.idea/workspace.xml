@@ -14,8 +14,8 @@
       <file leaf-file-name="SMR.py" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/SMR.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="-1193">
-              <caret line="41" column="20" lean-forward="false" selection-start-line="41" selection-start-column="20" selection-end-line="41" selection-end-column="20" />
+            <state relative-caret-position="847">
+              <caret line="93" column="0" lean-forward="true" selection-start-line="93" selection-start-column="0" selection-end-line="93" selection-end-column="0" />
               <folding>
                 <element signature="e#0#33#0" expanded="true" />
               </folding>
@@ -27,8 +27,11 @@
         <entry file="file://$PROJECT_DIR$/SMR_helpers/Objects.py">
           <provider selected="true" editor-type-id="text-editor">
             <state relative-caret-position="782">
-              <caret line="23" column="36" lean-forward="true" selection-start-line="23" selection-start-column="36" selection-end-line="23" selection-end-column="36" />
-              <folding />
+              <caret line="23" column="36" lean-forward="false" selection-start-line="23" selection-start-column="36" selection-end-line="23" selection-end-column="36" />
+              <folding>
+                <marker date="1541709500735" expanded="true" signature="671:1102" ph="..." />
+                <marker date="1541709500735" expanded="true" signature="1063:1102" ph="..." />
+              </folding>
             </state>
           </provider>
         </entry>
@@ -59,10 +62,9 @@
     </option>
   </component>
   <component name="ProjectFrameBounds" extendedState="6">
-    <option name="x" value="334" />
-    <option name="y" value="94" />
-    <option name="width" value="3434" />
-    <option name="height" value="1949" />
+    <option name="y" value="39" />
+    <option name="width" value="1910" />
+    <option name="height" value="2121" />
   </component>
   <component name="ProjectView">
     <navigator currentView="ProjectPane" proportions="" version="1">
@@ -101,7 +103,7 @@
   </component>
   <component name="PropertiesComponent">
     <property name="settings.editor.selected.configurable" value="configurable.group.appearance" />
-    <property name="last_opened_file_path" value="$PROJECT_DIR$" />
+    <property name="last_opened_file_path" value="$USER_HOME$/Tesla-TraQR/simulation" />
   </component>
   <component name="RecentsManager">
     <key name="MoveFile.RECENT_KEYS">
@@ -204,7 +206,10 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="1394">
           <caret line="41" column="37" lean-forward="false" selection-start-line="41" selection-start-column="37" selection-end-line="41" selection-end-column="37" />
-          <folding />
+          <folding>
+            <marker date="1541709500735" expanded="true" signature="671:1102" ph="..." />
+            <marker date="1541709500735" expanded="true" signature="1063:1102" ph="..." />
+          </folding>
         </state>
       </provider>
     </entry>
@@ -222,7 +227,10 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="646">
           <caret line="19" column="0" lean-forward="false" selection-start-line="19" selection-start-column="0" selection-end-line="19" selection-end-column="0" />
-          <folding />
+          <folding>
+            <marker date="1541709500735" expanded="true" signature="671:1102" ph="..." />
+            <marker date="1541709500735" expanded="true" signature="1063:1102" ph="..." />
+          </folding>
         </state>
       </provider>
     </entry>
@@ -236,15 +244,18 @@
     <entry file="file://$PROJECT_DIR$/SMR_helpers/Objects.py">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="782">
-          <caret line="23" column="36" lean-forward="true" selection-start-line="23" selection-start-column="36" selection-end-line="23" selection-end-column="36" />
-          <folding />
+          <caret line="23" column="36" lean-forward="false" selection-start-line="23" selection-start-column="36" selection-end-line="23" selection-end-column="36" />
+          <folding>
+            <marker date="1541709500735" expanded="true" signature="671:1102" ph="..." />
+            <marker date="1541709500735" expanded="true" signature="1063:1102" ph="..." />
+          </folding>
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/SMR.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="-1193">
-          <caret line="41" column="20" lean-forward="false" selection-start-line="41" selection-start-column="20" selection-end-line="41" selection-end-column="20" />
+        <state relative-caret-position="847">
+          <caret line="93" column="0" lean-forward="true" selection-start-line="93" selection-start-column="0" selection-end-line="93" selection-end-column="0" />
           <folding>
             <element signature="e#0#33#0" expanded="true" />
           </folding>

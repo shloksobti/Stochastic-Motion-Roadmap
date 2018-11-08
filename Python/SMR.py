@@ -27,6 +27,7 @@ def sample(cspace):
     # sample n valid states from CSpace
     valid_states = [start, goal]
     idx = 0
+
     while idx<n:
         x = random.uniform(cspace.x_min, cspace.x_max)
         y = random.uniform(cspace.y_min, cspace.y_max)
@@ -34,8 +35,9 @@ def sample(cspace):
         b = random.choice([0,1])
 
         r_state = State(x,y,theta,b)
-
-        if r_state in valid_states:
+        if state_collides(cspace, r_state): # if the state collides, don't add it
+            continue
+        if r_state in valid_states: # if the state is already in the list, don't add it
             continue
         else:
             valid_states.append(r_state)
@@ -57,7 +59,7 @@ def get_nearest_neighbor(valid_states, state):
     return nearest_neighbor
 
 
-def collides(cspace, state):
+def state_collides(cspace, state):
     collision = False
     obstacles = cspace.obstacles
     # check whether state is in collision (whether a point / square is in a rectangular obstacle)
@@ -79,7 +81,8 @@ def get_transition_probabilities(cspace, valid_states, controlvect):
                 # get the next state
                 next_state = state.apply_motion(arc_length, arc_radius, control)
                 nearest_state = None  # obstacle state representation
-                if not collides(cspace, next_state):
+                if not state_collides(cspace, next_state): # if the new state is collision free and if the path is collision free
+                    # TODO path collision check
                     # get the nearest neighbor in valid states to the next state
                     nearest_state = get_nearest_neighbor(valid_states, next_state)
                 state_count[nearest_state] += 1
@@ -87,6 +90,7 @@ def get_transition_probabilities(cspace, valid_states, controlvect):
                 tp[state][control][next_state] = state_count[next_state]/m
 
     return tp
+
 
 def value_iteration(valid_states):
 
