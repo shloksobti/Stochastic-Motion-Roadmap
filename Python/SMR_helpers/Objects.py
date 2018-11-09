@@ -1,4 +1,4 @@
-from math import pi, cos, sin
+from math import pi, cos, sin, sqrt, inf
 LEFT = 0
 RIGHT = 1
 
@@ -58,8 +58,8 @@ class State:
         if self.b == some_state.b:
             M = 0
         else:
-            M = math.inf
-        distance = sqrt((self.x-some_state.x)^2 + (self.y-some_state.y)^2 + 2*(self.theta-some_state.theta)^2) + M
+            M = inf
+        distance = sqrt((self.x-some_state.x)**2 + (self.y-some_state.y)**2 + 2*(self.theta-some_state.theta)**2) + M
         return distance
 
     def get_path(self, arc_radius, arc_length, control, resolution):
