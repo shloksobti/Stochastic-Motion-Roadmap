@@ -34,7 +34,7 @@ class State:
         new_theta = float('NaN')
         new_x = float('NaN')
         new_y = float('NaN')
-        circle_center = self.__get_circle_angle__(control)
+        circle_center = self.__get_circle_center__(control)
         if control == LEFT:
             new_theta = self.theta + arc_angle
             new_x = radius * cos(circle_angle + arc_angle) + circle_center[0]
