@@ -1,4 +1,6 @@
-
+from math import pi, cos, sin
+LEFT = 0
+RIGHT = 1
 
 # State class
 class State:
@@ -7,23 +9,59 @@ class State:
         self.y = y
         self.theta = theta
         self.b = b
-        self.v = 0
-        self.r = 0
+        self.v = v
+        self.r = r
+
+    def __bounded__(self, angle):
+        if angle < -pi:
+            return angle + 2*pi
+        if angle > pi:
+            return angle - 2*pi
+        else:
+            return angle
+
+    def __get_circle_angle__(self, control):
+        if control == LEFT:
+            return self.theta - pi/2
+        if control == RIGHT:
+            return self.theta + pi/2
+
+    def __get_circle_center__(self, radius, circle_angle):
+        # TODO left or right
+        return (self.x - radius*cos(circle_angle), self.y - radius*sin(circle_angle))
+
+    def __get_new_state__(self, radius, arc_angle, circle_angle, control):
+        new_theta = float('NaN')
+        new_x = float('NaN')
+        new_y = float('NaN')
+        circle_center = self.__get_circle_angle__(control)
+        if control == LEFT:
+            new_theta = self.theta + arc_angle
+            new_x = radius * cos(circle_angle + arc_angle) + circle_center[0]
+            new_y = radius * sin(circle_angle + arc_angle) + circle_center[1]
+        if control == RIGHT:
+            new_theta = self.theta - arc_angle
+            new_x = radius * cos(circle_angle - arc_angle) + circle_center[0]
+            new_y = radius * sin(circle_angle - arc_angle) + circle_center[1]
+        return State(new_x, new_y, self.__bounded__(new_theta), control)
 
     def to_string(self):
         print("x = ", self.x, ", y =", self.y, ", theta =", self.theta, ", direction =", self.b, "\n")
 
     def apply_motion(self, arc_length, arc_radius, control):
         # calculate x, y, theta for each state through math
-            # CODE HERE
-
-        next_state = State(1, 2, 3, control)
-        return next_state
+        arc_angle = arc_length / arc_radius
+        circle_angle = self.__get_circle_angle__(control)
+        return self.__get_new_state__(arc_radius, arc_angle, circle_angle, control)
 
     def get_distance(self, some_state):
         distance = 0
         # get distance to some state
         return distance
+
+    def get_path(self, some_state, resolution):
+        path = []
+        return path
 
 class Path:
     def __init__(self, state_a, state_b, arc_length, radius):

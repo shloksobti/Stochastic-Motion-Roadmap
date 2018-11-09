@@ -16,15 +16,12 @@ sig_r = 1
 
 def initialize():
     # initialize space bounds
-    cspace = CSpace(-15, 15, -15, 15, -pi/4, pi/4, 0, 1)
+    cspace = CSpace(-15, 15, -15, 15, -pi, pi, 0, 1)
     start = State(0, 0, 0, 0, 0, 0)
     goal = State(10, 10, 0, 0, 0, 1)
     controlvect = [0, 1]
     return cspace, start, goal, controlvect
 
-def path_collides(cspace, path):
-
-    return
 
 def sample(cspace):
     # sample n valid states from CSpace
@@ -67,6 +64,11 @@ def state_collides(cspace, state):
     obstacles = cspace.obstacles
     # check whether state is in collision (whether a point / square is in a rectangular obstacle)
     return collision
+
+
+def path_collides(cspace, path):
+
+    return
 
 
 def get_transition_probabilities(cspace, valid_states, controlvect):
@@ -127,9 +129,6 @@ def get_policy():
     policy = {}
     return policy
 
-def get_path():
-    path = []
-    return path
 
 if __name__ == "__main__":
     cspace, start, goal, controlvect = initialize()
