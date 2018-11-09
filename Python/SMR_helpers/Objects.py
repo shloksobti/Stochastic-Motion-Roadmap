@@ -59,8 +59,22 @@ class State:
         # get distance to some state
         return distance
 
-    def get_path(self, some_state, resolution):
+    def get_path(self, arc_radius, arc_length, control, resolution):
         path = []
+        range = (0, 2*pi)
+        arc_angle = arc_length / arc_radius
+        circle_angle = self.__get_circle_angle__(control)
+
+        if control == LEFT:
+            range = (circle_angle, circle_angle + arc_angle)
+        if control == RIGHT:
+            range = (circle_angle - arc_angle, circle_angle)
+
+        t = range[0]
+        while t < range[1]:
+            check_state = self.__get_new_state__(arc_radius, arc_angle, circle_angle, control)
+            path.append(check_state)
+            t += resolution
         return path
 
 class Path:
