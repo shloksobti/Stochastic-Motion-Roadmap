@@ -122,14 +122,16 @@ def value_iteration(valid_states, tp):
 
 
 def get_policy(valid_states, goal):
+    # Extract policy from TP map
     policy = {}
     return policy
 
 
-if __name__ == "__main__":
-    cspace, start, goal, controlvect = initialize()
-    valid_states = sample(cspace)
-
-    tp_map = get_transition_probabilities(cspace, valid_states, controlvect)
-    print(tp_map)
-    #policy = get_policy()
+# if __name__ == "__main__":
+#     # cspace, start, goal, controlvect = initialize()
+#     #valid_states = sample(cspace)
+#
+#     #tp_map = get_transition_probabilities(cspace, valid_states, controlvect)
+#     #print(tp_map)
+#
+#     #policy = get_policy()
