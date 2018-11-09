@@ -34,7 +34,7 @@ class State:
         new_theta = float('NaN')
         new_x = float('NaN')
         new_y = float('NaN')
-        circle_center = self.__get_circle_center__(control)
+        circle_center = self.__get_circle_center__(radius, control)
         if control == LEFT:
             new_theta = self.theta + arc_angle
             new_x = radius * cos(circle_angle + arc_angle) + circle_center[0]
@@ -55,8 +55,11 @@ class State:
         return self.__get_new_state__(arc_radius, arc_angle, circle_angle, control)
 
     def get_distance(self, some_state):
-        distance = 0
-        # get distance to some state
+        if self.b == some_state.b:
+            M = 0
+        else:
+            M = math.inf
+        distance = sqrt((self.x-some_state.x)^2 + (self.y-some_state.y)^2 + 2*(self.theta-some_state.theta)^2) + M
         return distance
 
     def get_path(self, arc_radius, arc_length, control, resolution):
@@ -77,12 +80,12 @@ class State:
             t += resolution
         return path
 
-class Path:
-    def __init__(self, state_a, state_b, arc_length, radius):
-        self.state_a = None
-        self.state_b = None
-        self.arc_length = None
-        self.radius = None
+class Obstacle:
+    def __init__(self, x_min, y_min, width, height):
+        self.x_min = x_min
+        self.y_min = y_min
+        self.width = width
+        self.height = height
 
 # Space class
 class CSpace:

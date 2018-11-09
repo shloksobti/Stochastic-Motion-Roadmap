@@ -67,8 +67,11 @@ def state_collides(cspace, state):
 
 
 def path_collides(cspace, path):
-
-    return
+    collision = False
+    for state in path:
+        if state_collides(cspace, state):
+            return True
+    return collision
 
 
 def get_transition_probabilities(cspace, valid_states, controlvect):
@@ -121,11 +124,13 @@ def value_iteration(valid_states, tp):
 
             new_v = state.r + P_V
             diff[idx] = new_v - state.v
-            state.v = new_v
+            # Exclude the goal state from updating V
+            if state.r != 1:
+                state.v = new_v
     return
 
 
-def get_policy():
+def get_policy(valid_states, goal):
     policy = {}
     return policy
 
