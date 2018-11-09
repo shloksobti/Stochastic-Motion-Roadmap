@@ -89,7 +89,7 @@ class Obstacle:
 
 # Space class
 class CSpace:
-    def __init__(self, x_min, x_max, y_min, y_max, theta_min, theta_max, b_min, b_max):
+    def __init__(self, x_min, x_max, y_min, y_max, theta_min, theta_max, b_min, b_max, obstacles):
         self.x_min = x_min
         self.x_max = x_max
         self.y_min = y_min
@@ -98,7 +98,7 @@ class CSpace:
         self.theta_max = theta_max
         self.b_min = b_min
         self.b_max = b_max
-        self.obstacles = []
+        self.obstacles = obstacles
 
     def set_obstacles(self, obstaclevect):
         self.obstacles = obstaclevect

@@ -2,7 +2,7 @@ from SMR_helpers.Objects import *
 
 from collections import defaultdict
 import random
-from math import pi
+from math import pi, sqrt, inf
 
 m = 100 # number of iterations to get transition probabilities
 n = 50 # number of valid samples states (50000)
@@ -12,15 +12,6 @@ mu_al = 0.5
 sig_al = 0.2
 mu_r = 2.5
 sig_r = 1
-
-
-def initialize():
-    # initialize space bounds
-    cspace = CSpace(-15, 15, -15, 15, -pi, pi, 0, 1)
-    start = State(0, 0, 0, 0, 0, 0)
-    goal = State(10, 10, 0, 0, 0, 1)
-    controlvect = [0, 1]
-    return cspace, start, goal, controlvect
 
 
 def sample(cspace):
