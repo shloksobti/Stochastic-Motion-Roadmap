@@ -8,9 +8,9 @@ m = 100 # number of iterations to get transition probabilities
 n = 50 # number of valid samples states (50000)
 
 # means and stdev of arc length and radius from the Paper
-mu_al = 0
-sig_al = 1
-mu_r = 0
+mu_al = 0.5
+sig_al = 0.2
+mu_r = 2.5
 sig_r = 1
 
 
@@ -102,7 +102,7 @@ def get_transition_probabilities(cspace, valid_states, controlvect):
 
 def value_iteration(valid_states, tp):
 
-    epsilon = 0.1 #use some epsilon
+    epsilon = 0.001 #use some epsilon
     diff = [] #initialize list
     while max(diff) > epsilon:
         for idx, state in enumerate(valid_states):
