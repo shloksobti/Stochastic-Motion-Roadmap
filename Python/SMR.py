@@ -121,9 +121,17 @@ def value_iteration(valid_states, tp):
     return
 
 
-def get_policy(valid_states, goal):
+def get_policy(valid_states, tp):
     # Extract policy from TP map
     policy = {}
+    for state in valid_states:
+        best_action = None
+        for action,v in tp[state]:
+            for q_prime, prob in v:
+                if v > max_v:
+                    best_action = action
+        policy[state] = best_action
+        # tp = {state1 : {action1: {state1' : TP1}}, state2: {action2: {state2': TP2}}}
     return policy
 
 
