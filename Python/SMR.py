@@ -125,11 +125,13 @@ def get_policy(valid_states, tp):
     # Extract policy from TP map
     policy = {}
     for state in valid_states:
+        max_v = 0
         best_action = None
         for action,v in tp[state]:
             for q_prime, prob in v:
                 if v > max_v:
                     best_action = action
+                    max_v = v
         policy[state] = best_action
         # tp = {state1 : {action1: {state1' : TP1}}, state2: {action2: {state2': TP2}}}
     return policy
