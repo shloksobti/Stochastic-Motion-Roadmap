@@ -136,12 +136,6 @@ def get_policy(valid_states, tp):
         # tp = {state1 : {action1: {state1' : TP1}}, state2: {action2: {state2': TP2}}}
     return policy
 
-
-# if __name__ == "__main__":
-#     # cspace, start, goal, controlvect = initialize()
-#     #valid_states = sample(cspace)
-#
-#     #tp_map = get_transition_probabilities(cspace, valid_states, controlvect)
-#     #print(tp_map)
-#
-#     #policy = get_policy()
+def simulate_path(cspace, policy):
+    path = []
+    return path
