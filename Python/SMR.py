@@ -51,10 +51,16 @@ def get_nearest_neighbor(valid_states, state):
 
 
 def state_collides(cspace, state):
-    collision = False
     obstacles = cspace.obstacles
     # check whether state is in collision (whether a point / square is in a rectangular obstacle)
-    return collision
+    for obstacle in obstacles:
+        x_min = obstacle.x_min
+        x_max = obstacle.x_max
+        y_min = obstacle.y_min
+        y_max = obstacle.y_max
+        if (state.x >= x_min and state.x>=x_max) and (state.y>=y_min and state.y>=y_max):
+            return True
+    return False
 
 
 def path_collides(cspace, path):
