@@ -12,11 +12,12 @@ mu_al = 0.5
 sig_al = 0.2
 mu_r = 2.5
 sig_r = 1
-
+start = State(0, 0, 0, 0, 0, 0)
+goal = State(10, 10, 0, 0, 0, 1)
 
 def sample(cspace):
     # sample n valid states from CSpace
-    valid_states = [start, goal]
+    valid_states = [start]
     idx = 0
 
     while idx<n:
@@ -33,6 +34,7 @@ def sample(cspace):
         else:
             valid_states.append(r_state)
             idx += 1
+    valid_states.append(goal)
     return valid_states
 
 
@@ -55,9 +57,9 @@ def state_collides(cspace, state):
     # check whether state is in collision (whether a point / square is in a rectangular obstacle)
     for obstacle in obstacles:
         x_min = obstacle.x_min
-        x_max = obstacle.x_max
+        x_max = obstacle.x_min + obstacle.width
         y_min = obstacle.y_min
-        y_max = obstacle.y_max
+        y_max = obstacle.y_min + obstacle.height
         if (state.x >= x_min and state.x>=x_max) and (state.y>=y_min and state.y>=y_max):
             return True
     return False
@@ -100,27 +102,28 @@ def get_transition_probabilities(cspace, valid_states, controlvect):
 def value_iteration(valid_states, tp):
 
     epsilon = 0.001 #use some epsilon
-    diff = [] #initialize list
+    diff = [inf] #initialize list
     while max(diff) > epsilon:
         for idx, state in enumerate(valid_states):
             #value iteration function
-
+            diff.pop(0)
             # Left control
-            q_ast_left = tp[state][0].keys #list of possible states acheived
+            q_ast_left = tp[state][0].keys() #list of possible states acheived
+            print(idx)
             P_V_left = 0
             for stt in q_ast_left:
                 P_V_left = P_V_left + (tp[state][0][stt] * stt.v)
 
             # Right Control
-            q_ast_right = tp[state][1].keys
+            q_ast_right = tp[state][1].keys()
             P_V_right = 0
             for stt in q_ast_right:
-                P_V_right = P_V_right + (tp[state][0][stt] * stt.v)
+                P_V_right = P_V_right + (tp[state][1][stt] * stt.v)
 
             P_V = max(P_V_left, P_V_right) # Max PV for both the controls
 
             new_v = state.r + P_V
-            diff[idx] = new_v - state.v
+            diff.append(new_v - state.v)
             # Exclude the goal state from updating V
             if state.r != 1:
                 state.v = new_v
@@ -142,6 +145,6 @@ def get_policy(valid_states, tp):
         # tp = {state1 : {action1: {state1' : TP1}}, state2: {action2: {state2': TP2}}}
     return policy
 
-def simulate_path(cspace, policy):
+def simulate_path(cspace, valid_states, policy):
     path = []
     return path
