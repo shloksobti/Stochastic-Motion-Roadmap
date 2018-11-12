@@ -87,18 +87,18 @@ def get_transition_probabilities(cspace, valid_states, controlvect):
                 arc_radius = random.gauss(mu_r, sig_r)
                 # get the next state
                 next_state = state.apply_motion(arc_length, arc_radius, control)
-                nearest_state = None  # obstacle state representation
                 resolution = 0.1
                 path = state.get_path(arc_radius, arc_length, control, resolution)
-                if not state_collides(cspace, next_state) and not path_collides(cspace, path): # if the new state is collision free and if the path is collision free
-                    # get the nearest neighbor in valid states to the next state
+                if state_collides(cspace, next_state) or path_collides(cspace, path):
+                    next_state.is_obstacle = True #Change this, its a private attribute!!
+                    nearest_state = next_state
+                else:
                     nearest_state = get_nearest_neighbor(valid_states, next_state)
                 state_count[nearest_state] += 1
             for next_state in state_count.keys():
                 tp[state][control][next_state] = state_count[next_state]/m
 
     return tp
-
 
 def value_iteration(valid_states, tp):
 
@@ -125,8 +125,8 @@ def value_iteration(valid_states, tp):
 
             new_v = state.r + P_V
             diff.append(new_v - state.v)
-            # Exclude the goal state from updating V
-            if state.r != 1:
+            # Exclude the goal state and obstacle state from updating V
+            if state.r != 1 and not state.is_obstacle:
                 state.v = new_v
     return
 
