@@ -88,8 +88,9 @@ def get_transition_probabilities(cspace, valid_states, controlvect):
                 # get the next state
                 next_state = state.apply_motion(arc_length, arc_radius, control)
                 nearest_state = None  # obstacle state representation
-                if not state_collides(cspace, next_state): # if the new state is collision free and if the path is collision free
-                    # TODO path collision check
+                resolution = 0.1
+                path = state.get_path(arc_radius, arc_length, control, resolution)
+                if not state_collides(cspace, next_state) and not path_collides(cspace, path): # if the new state is collision free and if the path is collision free
                     # get the nearest neighbor in valid states to the next state
                     nearest_state = get_nearest_neighbor(valid_states, next_state)
                 state_count[nearest_state] += 1

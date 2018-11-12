@@ -4,13 +4,14 @@ RIGHT = 1
 
 # State class
 class State:
-    def __init__(self, x, y, theta, b, v=0, r=0):
+    def __init__(self, x, y, theta, b, v=0, r=0, is_obstacle = False):
         self.x = x
         self.y = y
         self.theta = theta
         self.b = b
         self.v = v
         self.r = r
+        self.is_obstacle = is_obstacle
 
     def __bounded__(self, angle):
         if angle < -pi:
