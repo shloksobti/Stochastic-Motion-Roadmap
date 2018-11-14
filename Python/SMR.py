@@ -4,8 +4,8 @@ from collections import defaultdict
 import random
 from math import pi, sqrt, inf
 
-m = 100 # number of iterations to get transition probabilities
-n = 50 # number of valid samples states (50000)
+m = 10 # number of iterations to get transition probabilities
+n = 100 # number of valid samples states (50,000)
 
 # means and stdev of arc length and radius from the Paper
 mu_al = 0.5
@@ -13,7 +13,7 @@ sig_al = 0.2
 mu_r = 2.5
 sig_r = 1
 start = State(0, 0, 0, 0, 0, 0)
-goal = State(10, 10, 0, 0, 0, 1)
+goal = State(10, 10, 0, 0, 1, 1)
 
 def sample(cspace):
     # sample n valid states from CSpace
@@ -85,12 +85,13 @@ def get_transition_probabilities(cspace, valid_states, controlvect):
                 # get arc length and arc radius from gaussian dist with prespecified mean and stdev
                 arc_length = random.gauss(mu_al, sig_al)
                 arc_radius = random.gauss(mu_r, sig_r)
+
                 # get the next state
                 next_state = state.apply_motion(arc_length, arc_radius, control)
-                resolution = 0.1
+                resolution = 0.001
                 path = state.get_path(arc_radius, arc_length, control, resolution)
                 if state_collides(cspace, next_state) or path_collides(cspace, path):
-                    next_state.is_obstacle = True #Change this, its a private attribute!!
+                    next_state.is_obstacle = True
                     nearest_state = next_state
                 else:
                     nearest_state = get_nearest_neighbor(valid_states, next_state)
@@ -101,32 +102,35 @@ def get_transition_probabilities(cspace, valid_states, controlvect):
     return tp
 
 def value_iteration(valid_states, tp):
-
+    #print(valid_states[-1].v)
     epsilon = 0.001 #use some epsilon
     diff = [inf] #initialize list
     while max(diff) > epsilon:
+        diff = []
         for idx, state in enumerate(valid_states):
             #value iteration function
-            diff.pop(0)
+
             # Left control
             q_ast_left = tp[state][0].keys() #list of possible states acheived
-            print(idx)
             P_V_left = 0
             for stt in q_ast_left:
+                print(stt.v)
                 P_V_left = P_V_left + (tp[state][0][stt] * stt.v)
 
             # Right Control
             q_ast_right = tp[state][1].keys()
             P_V_right = 0
             for stt in q_ast_right:
+                print(stt.v)
                 P_V_right = P_V_right + (tp[state][1][stt] * stt.v)
 
             P_V = max(P_V_left, P_V_right) # Max PV for both the controls
 
             new_v = state.r + P_V
+            #print(new_v-state.v) # WHY IS THE NEW V NOT CHANGING?!
             diff.append(new_v - state.v)
             # Exclude the goal state and obstacle state from updating V
-            if state.r != 1 and not state.is_obstacle:
+            if state.r != 1:
                 state.v = new_v
     return
 
