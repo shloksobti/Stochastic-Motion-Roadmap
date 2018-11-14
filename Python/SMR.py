@@ -105,13 +105,13 @@ def get_transition_probabilities(cspace, valid_states, controlvect):
 
 def value_iteration(valid_states, tp):
     #print(valid_states[-1].v)
-    epsilon = 0.01 #use some epsilon
+    epsilon = 0.001 #use some epsilon
     diff = [inf] #initialize list
     while max(diff) > epsilon:
-        print("Max diff is:", max(diff))
+        # print("Max diff is:", max(diff))
         diff = []
         # print("Length of Valid States:",len(valid_states))
-        for idx, state in enumerate(valid_states):
+        for idx, state in enumerate(valid_states[0:-1]):
             #value iteration function
 
             # Left control
@@ -131,11 +131,10 @@ def value_iteration(valid_states, tp):
             P_V = max(P_V_left, P_V_right) # Max PV for both the controls
 
             new_v = state.r + P_V
-            #print(new_v-state.v) # WHY IS THE NEW V NOT CHANGING?!
+            #print(new_v-state.v)
             diff.append(new_v - state.v)
             # Exclude the goal state and obstacle state from updating V
-            if state.r != 1:
-                state.v = new_v
+            state.v = new_v
     return
 
 
@@ -147,9 +146,9 @@ def get_policy(valid_states, tp):
         best_action = None
         for action,v in tp[state].items():
             for q_prime, prob in v.items():
-                if v > max_v:
+                if q_prime.v > max_v:
                     best_action = action
-                    max_v = v
+                    max_v = q_prime.v
         policy[state] = best_action
         # tp = {state1 : {action1: {state1' : TP1}}, state2: {action2: {state2': TP2}}}
     return policy

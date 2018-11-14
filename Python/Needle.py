@@ -24,15 +24,16 @@ goal = State(0.5, 0.5, 0, 0, 1, 1)
 controlvect = [0, 1]
 
 # Actual Planning
+# if _name_ == "_main_":
 my_valid_states = sample(cspace)
 my_tp = get_transition_probabilities(cspace, my_valid_states, controlvect)
-# value_iteration(my_valid_states, my_tp)
-# policy = get_policy(valid_states, tp)
+value_iteration(my_valid_states, my_tp)
+# policy = get_policy(my_valid_states, my_tp)
 # print (policy)
 
-
-# Checking TP
-for state, v in my_tp.items():
-    for action, stt_p_dict in v.items():
-        for stt, p in stt_p_dict.items():
-            print("State", state.to_string(), "Action",action, "StatePrime", stt.to_string(), "Prob",p)
+    #
+    # # Checking TP
+    # for state, v in my_tp.items():
+    #     for action, stt_p_dict in v.items():
+    #         for stt, p in stt_p_dict.items():
+    #             print("State", state.to_string(), "Action",action, "StatePrime", stt.to_string(), "Prob",p)
