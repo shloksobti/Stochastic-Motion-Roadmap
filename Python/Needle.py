@@ -13,21 +13,26 @@ def make_obstacle():
     return obstacles
 
 #Planning for Needle
-obstacles = make_obstacle()
-cspace = CSpace(-15, 15, -15, 15, -pi, pi, 0, 1, obstacles)
+# obstacles = make_obstacle()
+obstacles = []
+# cspace = CSpace(-15, 15, -15, 15, -pi, pi, 0, 1, obstacles)
+cspace = CSpace(-1, 1, -1, 1, -pi, pi, 0, 1, obstacles)
 start = State(0, 0, 0, 0, 0, 0)
-goal = State(10, 10, 0, 0, 1, 1)
+# goal = State(10, 10, 0, 0, 1, 1)
+goal = State(0.5, 0.5, 0, 0, 1, 1)
+
 controlvect = [0, 1]
 
 # Actual Planning
-valid_states = sample(cspace)
-tp = get_transition_probabilities(cspace, valid_states, controlvect)
-value_iteration(valid_states, tp)
+my_valid_states = sample(cspace)
+my_tp = get_transition_probabilities(cspace, my_valid_states, controlvect)
+
+for state, v in my_tp.items():
+    for action, stt_p_dict in v.items():
+        for stt, p in stt_p_dict.items():
+            print("State", state.to_string(), "Action",action, "StatePrime", stt.to_string(), "Prob",p)
+
+
+# value_iteration(my_valid_states, my_tp)
 # policy = get_policy(valid_states, tp)
 # print (policy)
-#
-# state_1 = State(1,1,0,0)
-# state_2 = State(9,9,0,0)
-# valid_states = [start, state_1, state_2, goal]
-# tp = {start: {0: {state_1: 0.2, start: 0.8}, 1:{state_1: 0.8, start: 0.2}}, state_1: {0:{start: 0.8, state_2: 0.1, state_1: 0.1}, 1:{state_2:1}}, state_2: {1:{goal:0.7, state_1: 0.3}}}
-# value_iteration(valid_states, tp)

@@ -35,7 +35,7 @@ class State:
         new_theta = float('NaN')
         new_x = float('NaN')
         new_y = float('NaN')
-        circle_center = self.__get_circle_center__(radius, control)
+        circle_center = self.__get_circle_center__(radius, circle_angle)
         if control == LEFT:
             new_theta = self.theta + arc_angle
             new_x = radius * cos(circle_angle + arc_angle) + circle_center[0]
@@ -47,7 +47,7 @@ class State:
         return State(new_x, new_y, self.__bounded__(new_theta), control)
 
     def to_string(self):
-        print("x = ", self.x, ", y =", self.y, ", theta =", self.theta, ", direction =", self.b, "\n")
+        return "x = "+ str(self.x) + ", y =" + str(self.y) + ", theta =" + str(self.theta) + ", direction =" + str(self.b) + "\n"
 
     def apply_motion(self, arc_length, arc_radius, control):
         # calculate x, y, theta for each state through math
@@ -80,6 +80,10 @@ class State:
             path.append(check_state)
             t += resolution
         return path
+
+    def is_valid_state():
+    # TODO
+        return True
 
 class Obstacle:
     def __init__(self, x_min, y_min, width, height):

@@ -5,7 +5,7 @@ import random
 from math import pi, sqrt, inf
 
 m = 10 # number of iterations to get transition probabilities
-n = 100 # number of valid samples states (50,000)
+n = 3 # number of valid samples states (50,000)
 
 # means and stdev of arc length and radius from the Paper
 mu_al = 0.5
@@ -39,16 +39,15 @@ def sample(cspace):
 
 
 def get_nearest_neighbor(valid_states, state):
-    max_distance = 0
-    max_idx = 0
+    min_distance = inf
+    min_idx = None
     for idx, valid_state in enumerate(valid_states):
         distance = state.get_distance(valid_state)
-        if distance > max_distance:
-            max_distance = distance
-            max_idx = idx
+        if distance < min_distance:
+            min_distance = distance
+            min_idx = idx
 
-    nearest_neighbor = valid_states[max_idx]
-
+    nearest_neighbor = valid_states[min_idx]
     return nearest_neighbor
 
 
@@ -98,15 +97,18 @@ def get_transition_probabilities(cspace, valid_states, controlvect):
                 state_count[nearest_state] += 1
             for next_state in state_count.keys():
                 tp[state][control][next_state] = state_count[next_state]/m
+                #print("Start state: ", state.to_string())
 
     return tp
 
 def value_iteration(valid_states, tp):
     #print(valid_states[-1].v)
-    epsilon = 0.001 #use some epsilon
+    epsilon = 0.01 #use some epsilon
     diff = [inf] #initialize list
     while max(diff) > epsilon:
+        print("Max diff is:", max(diff))
         diff = []
+        # print("Length of Valid States:",len(valid_states))
         for idx, state in enumerate(valid_states):
             #value iteration function
 
@@ -114,14 +116,14 @@ def value_iteration(valid_states, tp):
             q_ast_left = tp[state][0].keys() #list of possible states acheived
             P_V_left = 0
             for stt in q_ast_left:
-                print(stt.v)
+                # print(stt.v)
                 P_V_left = P_V_left + (tp[state][0][stt] * stt.v)
 
             # Right Control
             q_ast_right = tp[state][1].keys()
             P_V_right = 0
             for stt in q_ast_right:
-                print(stt.v)
+                # print(stt.v)
                 P_V_right = P_V_right + (tp[state][1][stt] * stt.v)
 
             P_V = max(P_V_left, P_V_right) # Max PV for both the controls
@@ -141,8 +143,8 @@ def get_policy(valid_states, tp):
     for state in valid_states:
         max_v = 0
         best_action = None
-        for action,v in tp[state]:
-            for q_prime, prob in v:
+        for action,v in tp[state].items():
+            for q_prime, prob in v.items():
                 if v > max_v:
                     best_action = action
                     max_v = v
