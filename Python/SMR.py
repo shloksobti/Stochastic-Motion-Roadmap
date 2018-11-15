@@ -4,18 +4,16 @@ from collections import defaultdict
 import random
 from math import pi, sqrt, inf
 
-m = 10 # number of iterations to get transition probabilities
-n = 5 # number of valid samples states (50,000)
+m = 20 # number of iterations to get transition probabilities
+n = 50 # number of valid samples states (50,000)
 
 # means and stdev of arc length and radius from the Paper
 mu_al = 0.5
 sig_al = 0.2
 mu_r = 2.5
 sig_r = 1
-start = State(0, 0, 0, 0, 0, 0)
-goal = State(0.5, 0.5, 0, 0, 1, 1)
-
-# goal = State(10, 10, 0, 0, 1, 1)
+start = State(-10, -10, 0, 0, 0, 0)
+goal = State(10, 10, 0, 0, 1, 1)
 
 def sample(cspace):
     # sample n valid states from CSpace
@@ -104,11 +102,10 @@ def get_transition_probabilities(cspace, valid_states, controlvect):
     return tp
 
 def value_iteration(valid_states, tp):
-    #print(valid_states[-1].v)
-    epsilon = 0.001 #use some epsilon
+    epsilon = 0.00001 #use some epsilon
     diff = [inf] #initialize list
     while max(diff) > epsilon:
-        # print("Max diff is:", max(diff))
+        print("Max diff is:", max(diff))
         diff = []
         # print("Length of Valid States:",len(valid_states))
         for idx, state in enumerate(valid_states[0:-1]):
@@ -135,6 +132,7 @@ def value_iteration(valid_states, tp):
             diff.append(new_v - state.v)
             # Exclude the goal state and obstacle state from updating V
             state.v = new_v
+            # print("Value of State" + str(idx+1) + ":" + str(float(state.v)))
     return
 
 

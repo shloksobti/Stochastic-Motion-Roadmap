@@ -14,12 +14,10 @@ def make_obstacle():
 
 #Planning for Needle
 # obstacles = make_obstacle()
-obstacles = []
+obstacles = make_obstacle()
 # cspace = CSpace(-15, 15, -15, 15, -pi, pi, 0, 1, obstacles)
-cspace = CSpace(-1, 1, -1, 1, -pi, pi, 0, 1, obstacles)
-start = State(0, 0, 0, 0, 0, 0)
-# goal = State(10, 10, 0, 0, 1, 1)
-goal = State(0.5, 0.5, 0, 0, 1, 1)
+cspace = CSpace(-15, 15, -15, 15, -pi, pi, 0, 1, obstacles)
+
 
 controlvect = [0, 1]
 
@@ -28,12 +26,18 @@ controlvect = [0, 1]
 my_valid_states = sample(cspace)
 my_tp = get_transition_probabilities(cspace, my_valid_states, controlvect)
 value_iteration(my_valid_states, my_tp)
+
+for idx, state in enumerate(my_valid_states):
+    val = state.v
+    print("Value of State " + str(idx+1) +":" + str(val))
 # policy = get_policy(my_valid_states, my_tp)
 # print (policy)
 
-    #
-    # # Checking TP
-    # for state, v in my_tp.items():
-    #     for action, stt_p_dict in v.items():
-    #         for stt, p in stt_p_dict.items():
-    #             print("State", state.to_string(), "Action",action, "StatePrime", stt.to_string(), "Prob",p)
+
+# Checking TP
+# for state, v in my_tp.items():
+#     for action, stt_p_dict in v.items():
+#         for stt, p in stt_p_dict.items():
+#             print("State", state.to_string(), "Action",action, "StatePrime", stt.to_string(), "Prob",p)
+
+# Checking apply_motion
