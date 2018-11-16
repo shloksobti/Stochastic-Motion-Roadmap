@@ -3,9 +3,10 @@ from SMR_helpers.Objects import *
 from collections import defaultdict
 import random
 from math import pi, sqrt, inf
+import time
 
 m = 20 # number of iterations to get transition probabilities
-n = 50 # number of valid samples states (50,000)
+n = 5000 # number of valid samples states (50,000)
 
 # means and stdev of arc length and radius from the Paper
 mu_al = 0.5
@@ -75,7 +76,9 @@ def path_collides(cspace, path):
 def get_transition_probabilities(cspace, valid_states, controlvect):
     tp = {}  # transition probabilities table
 
-    for state in valid_states:
+    for I, state in enumerate(valid_states):
+        start = time.time()
+        print("State: ",I+1)
         tp[state] = {}
         for control in controlvect:
             tp[state][control] = {}
@@ -87,7 +90,7 @@ def get_transition_probabilities(cspace, valid_states, controlvect):
 
                 # get the next state
                 next_state = state.apply_motion(arc_length, arc_radius, control)
-                resolution = 0.001
+                resolution = 0.01
                 path = state.get_path(arc_radius, arc_length, control, resolution)
                 if state_collides(cspace, next_state) or path_collides(cspace, path):
                     next_state.is_obstacle = True
@@ -98,7 +101,8 @@ def get_transition_probabilities(cspace, valid_states, controlvect):
             for next_state in state_count.keys():
                 tp[state][control][next_state] = state_count[next_state]/m
                 #print("Start state: ", state.to_string())
-
+        end = time.time()
+        print("Total RunTime: ", (end-start)*1000)
     return tp
 
 def value_iteration(valid_states, tp):
