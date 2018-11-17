@@ -4,9 +4,10 @@ from collections import defaultdict
 import random
 from math import pi, sqrt, inf
 import time
+import numpy as np
 
 m = 20 # number of iterations to get transition probabilities
-n = 5000 # number of valid samples states (50,000)
+n = 500 # number of valid samples states (50,000)
 
 # means and stdev of arc length and radius from the Paper
 mu_al = 0.5
@@ -80,6 +81,7 @@ def get_transition_probabilities(cspace, valid_states, controlvect):
         start = time.time()
         print("State: ",I+1)
         tp[state] = {}
+
         for control in controlvect:
             tp[state][control] = {}
             state_count = defaultdict(int)
@@ -103,7 +105,9 @@ def get_transition_probabilities(cspace, valid_states, controlvect):
                 #print("Start state: ", state.to_string())
         end = time.time()
         print("Total RunTime: ", (end-start)*1000)
+    np.save('my_tp.npy', tp)
     return tp
+
 
 def value_iteration(valid_states, tp):
     epsilon = 0.00001 #use some epsilon
@@ -120,7 +124,7 @@ def value_iteration(valid_states, tp):
             P_V_left = 0
             for stt in q_ast_left:
                 # print(stt.v)
-                P_V_left = P_V_left + (tp[state][0][stt] * stt.v)
+                P_V_left = P_V_left + tp[state][0][stt] * stt.v
 
             # Right Control
             q_ast_right = tp[state][1].keys()
@@ -137,6 +141,7 @@ def value_iteration(valid_states, tp):
             # Exclude the goal state and obstacle state from updating V
             state.v = new_v
             # print("Value of State" + str(idx+1) + ":" + str(float(state.v)))
+
     return
 
 
@@ -148,12 +153,28 @@ def get_policy(valid_states, tp):
         best_action = None
         for action,v in tp[state].items():
             for q_prime, prob in v.items():
-                if q_prime.v > max_v:
+                if q_prime.v >= max_v:
                     best_action = action
                     max_v = q_prime.v
         policy[state] = best_action
         # tp = {state1 : {action1: {state1' : TP1}}, state2: {action2: {state2': TP2}}}
     return policy
+
+def tp_to_file(tp):
+    
+
+    return
+
+def policy_to_file(policy):
+    policy_file = {}
+    for k,v in policy.items():
+        state = (k.x,k.y,k.theta)
+        action = v
+        policy_file[state] = action
+    np.save('my_policy.npy', policy_file)
+    return
+
+
 
 def simulate_path(cspace, valid_states, policy):
     path = []

@@ -1,5 +1,6 @@
 from SMR_helpers.Objects import *
 from SMR import *
+import pickle
 
 def make_obstacle():
     #obstacle = Obstacle(x_min, y_min, width, height)
@@ -22,23 +23,30 @@ cspace = CSpace(-15, 15, -15, 15, -pi, pi, 0, 1, obstacles)
 controlvect = [0, 1]
 
 # Actual Planning
-# if __name__ == "__main__":
-print("Sampling....")
-my_valid_states = sample(cspace)
-print("Building TP....")
-my_tp = get_transition_probabilities(cspace, my_valid_states, controlvect)
-print("Value iteration...")
-value_iteration(my_valid_states, my_tp)
+if __name__ == "__main__":
+    print("Sampling...")
+    my_valid_states = sample(cspace)
 
-for idx, state in enumerate(my_valid_states):
-    val = state.v
-    print("Value of State " + str(idx+1) +":" + str(val))
-    # policy = get_policy(my_valid_states, my_tp)
-    # print (policy)
+    print("Building TP...")
+    my_tp = get_transition_probabilities(cspace, my_valid_states, controlvect)
+    with open("TransitionProbabilities" + '.pkl', 'wb') as f:
+        pickle.dump(my_tp, f, pickle.HIGHEST_PROTOCOL)
 
+    print("Value iteration...")
+    value_iteration(my_valid_states, my_tp)
 
-# # Checking TP
-# for state, v in my_tp.items():
-#     for action, stt_p_dict in v.items():
-#         for stt, p in stt_p_dict.items():
-#             print("State", state.to_string(), "Action",action, "StatePrime", stt.to_string(), "Prob",p)
+    for idx, state in enumerate(my_valid_states):
+        val = state.v
+        print("Value of State " + str(idx+1) +":" + str(val))
+        # policy = get_policy(my_valid_states, my_tp)
+        # print (policy)
+
+    print("Extracting Policy...")
+    my_policy = get_policy(my_valid_states, my_tp)
+    policy_to_file(my_policy)
+
+    # # Checking TP
+    # for state, v in my_tp.items():
+    #     for action, stt_p_dict in v.items():
+    #         for stt, p in stt_p_dict.items():
+    #             print("State", state.to_string(), "Action",action, "StatePrime", stt.to_string(), "Prob",p)
