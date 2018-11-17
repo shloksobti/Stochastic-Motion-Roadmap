@@ -64,25 +64,16 @@ class State:
         return distance
 
     def get_path(self, arc_radius, arc_length, control, resolution):
+        t = 0
         path = []
-        range = (0, 2*pi)
-        arc_angle = arc_length / arc_radius
-        circle_angle = self.__get_circle_angle__(control)
-
-        if control == LEFT:
-            range = (circle_angle, circle_angle + arc_angle)
-        if control == RIGHT:
-            range = (circle_angle - arc_angle, circle_angle)
-
-        t = range[0]
-        while t < range[1]:
-            check_state = self.__get_new_state__(arc_radius, arc_angle, circle_angle, control)
-            path.append(check_state)
+        while t <= 1:
+            add_state = self.apply_motion(t*arc_length, arc_radius, control)
+            path.append(add_state)
             t += resolution
         return path
 
     def is_valid_state():
-    # TODO
+    # TODO: Check Bounds
         return True
 
 class Obstacle:
