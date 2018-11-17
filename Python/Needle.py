@@ -32,6 +32,8 @@ if __name__ == "__main__":
     with open("TransitionProbabilities" + '.pkl', 'wb') as f:
         pickle.dump(my_tp, f, pickle.HIGHEST_PROTOCOL)
 
+
+
     print("Value iteration...")
     value_iteration(my_valid_states, my_tp)
 

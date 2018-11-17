@@ -5,6 +5,7 @@ import random
 from math import pi, sqrt, inf
 import time
 import numpy as np
+import pickle
 
 m = 20 # number of iterations to get transition probabilities
 n = 500 # number of valid samples states (50,000)
@@ -161,7 +162,7 @@ def get_policy(valid_states, tp):
     return policy
 
 def tp_to_file(tp):
-    
+
 
     return
 
@@ -171,7 +172,9 @@ def policy_to_file(policy):
         state = (k.x,k.y,k.theta)
         action = v
         policy_file[state] = action
-    np.save('my_policy.npy', policy_file)
+    # np.save('my_policy.npy', policy_file)
+    with open("Policy" + '.pkl', 'wb') as f:
+        pickle.dump(policy_file, f, pickle.HIGHEST_PROTOCOL)
     return
 
 
