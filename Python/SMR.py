@@ -160,17 +160,17 @@ def get_policy(valid_states, tp):
         # tp = {state1 : {action1: {state1' : TP1}}, state2: {action2: {state2': TP2}}}
     return policy
 
-# def tp_to_file(tp):
-#     tp_file = {}
-#     for state, value in tp.items():
-#         tp_file[(state.x, state.y, state.theta, state.is_obstacle)] = {}
-#         for action, dict in value.items():
-#             tp_file[(state.x, state.y, state.theta, state.is_obstacle)][action] = {}
-#             for stt, trp in dict.items():
-#                 tp_file[(state.x, state.y, state.theta, state.is_obstacle)][action][(stt.x, stt.y, stt.theta, stt.is_obstacle)] = trp
-#     with open("Transition Probabilities" + '.pkl', 'wb') as f:
-#         pickle.dump(tp_file, f, pickle.HIGHEST_PROTOCOL)
-#     return
+def tp_to_file(tp):
+    tp_file = {}
+    for state, value in tp.items():
+        tp_file[(state.x, state.y, state.theta, state.is_obstacle)] = {}
+        for action, dict in value.items():
+            tp_file[(state.x, state.y, state.theta, state.is_obstacle)][action] = {}
+            for stt, trp in dict.items():
+                tp_file[(state.x, state.y, state.theta, state.is_obstacle)][action][(stt.x, stt.y, stt.theta, stt.is_obstacle)] = trp
+    with open("Transition Probabilities" + '.pkl', 'wb') as f:
+        pickle.dump(tp_file, f, pickle.HIGHEST_PROTOCOL)
+    return
 
 def policy_to_file(policy):
     policy_file = {}

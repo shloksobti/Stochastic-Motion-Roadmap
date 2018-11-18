@@ -29,6 +29,7 @@ if __name__ == "__main__":
 
     print("Building TP...")
     my_tp = get_transition_probabilities(cspace, my_valid_states, controlvect)
+    tp_to_file(my_tp)
 
     print("Value iteration...")
     value_iteration(my_valid_states, my_tp)

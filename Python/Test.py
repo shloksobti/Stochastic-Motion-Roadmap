@@ -40,14 +40,25 @@ if __name__ == "__main__":
     policy = {}
     with open("Policy" + '.pkl', 'rb') as f:
         policy = pickle.load(f)
+    print(policy)
 
-
+    tp = {}
+    with open("Transition Probabilities" + '.pkl', 'rb') as f:
+        tp = = pickle.load(f)
+    
     fail_count = 0
     for i in range(100):
+        print("Trial: ", i+1)
 
         x_state = start # Current State
         while x_state != goal:
             arc_length = random.gauss(mu_al, sig_al)
             arc_radius = random.gauss(mu_r, sig_r)
             action = policy[(x_state.x, x_state.y, x_state.theta)]
-            new_state = x_state.apply_motion(arc_lengh, arc_radius, action)
+            new_state = x_state.apply_motion(arc_length, arc_radius, action) #Something is up with this!!!! Output not in valid states.
+            print((new_state.x, new_state.y, new_state.theta))
+            if new_state.is_obstacle:
+                fail_count += 1
+                print("Path Failed!!")
+                break
+            x_state = new_state
