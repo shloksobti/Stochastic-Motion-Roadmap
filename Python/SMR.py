@@ -62,7 +62,7 @@ def state_collides(cspace, state):
         x_max = obstacle.x_min + obstacle.width
         y_min = obstacle.y_min
         y_max = obstacle.y_min + obstacle.height
-        if (state.x >= x_min and state.x>=x_max) and (state.y>=y_min and state.y>=y_max):
+        if (state.x >= x_min and state.x <= x_max) and (state.y >= y_min and state.y <= y_max):
             return True
     return False
 
