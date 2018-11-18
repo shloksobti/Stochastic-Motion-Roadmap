@@ -35,6 +35,28 @@ from Needle import *
 # # loop
 # action = policy[(state.x, state.y, state.theta)]
 # state = tp[state][action]
+
+
+def plan_path(policy, start_state, goal_state, cspace):
+    found_path = [start_state]
+    x_state = start_state  # Current State
+    while x_state != goal_state:
+        arc_length = random.gauss(mu_al, sig_al)
+        arc_radius = random.gauss(mu_r, sig_r)
+        action = policy[(x_state.x, x_state.y, x_state.theta)]
+        new_state = x_state.apply_motion(arc_length, arc_radius,
+                                         action)  # Something is up with this!!!! Output not in valid states.
+        print((new_state.x, new_state.y, new_state.theta))
+        if new_state.is_obstacle:
+            print("Path Failed!!")
+            return False, found_path
+        else:
+            x_state = new_state
+            found_path.append(x_state)
+
+    return True, found_path
+
+
 if __name__ == "__main__":
     # Import Policy
     policy = {}
@@ -45,20 +67,8 @@ if __name__ == "__main__":
     tp = {}
     with open("Transition Probabilities" + '.pkl', 'rb') as f:
         tp = pickle.load(f)
-
+        
     fail_count = 0
     for i in range(100):
         print("Trial: ", i+1)
-
-        x_state = start # Current State
-        while x_state != goal:
-            arc_length = random.gauss(mu_al, sig_al)
-            arc_radius = random.gauss(mu_r, sig_r)
-            action = policy[(x_state.x, x_state.y, x_state.theta)]
-            new_state = x_state.apply_motion(arc_length, arc_radius, action) #Something is up with this!!!! Output not in valid states.
-            print((new_state.x, new_state.y, new_state.theta))
-            if new_state.is_obstacle:
-                fail_count += 1
-                print("Path Failed!!")
-                break
-            x_state = new_state
+        goal_reached, found_path = plan_path(policy, start, goal, cspace)
