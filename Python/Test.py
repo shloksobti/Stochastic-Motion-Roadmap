@@ -44,8 +44,8 @@ if __name__ == "__main__":
 
     tp = {}
     with open("Transition Probabilities" + '.pkl', 'rb') as f:
-        tp = = pickle.load(f)
-    
+        tp = pickle.load(f)
+
     fail_count = 0
     for i in range(100):
         print("Trial: ", i+1)
