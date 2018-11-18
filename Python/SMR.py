@@ -180,7 +180,7 @@ def policy_to_file(policy):
         policy_file[state] = action
     with open("Policy" + '.pkl', 'wb') as f:
         pickle.dump(policy_file, f, pickle.HIGHEST_PROTOCOL)
-    return
+    return policy_file
 
 
 

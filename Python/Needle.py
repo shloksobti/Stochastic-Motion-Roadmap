@@ -29,21 +29,16 @@ if __name__ == "__main__":
 
     print("Building TP...")
     my_tp = get_transition_probabilities(cspace, my_valid_states, controlvect)
-    # tp_to_file(my_tp)
-
 
     print("Value iteration...")
     value_iteration(my_valid_states, my_tp)
-
     for idx, state in enumerate(my_valid_states):
         val = state.v
         print("Value of State " + str(idx+1) +":" + str(val))
-        # policy = get_policy(my_valid_states, my_tp)
-        # print (policy)
 
     print("Extracting Policy...")
     my_policy = get_policy(my_valid_states, my_tp)
-    policy_to_file(my_policy)
+    print(policy_to_file(my_policy))
 
     # # Checking TP
     # for state, v in my_tp.items():
