@@ -95,7 +95,7 @@ def get_transition_probabilities(cspace, valid_states, controlvect):
                 next_state = state.apply_motion(arc_length, arc_radius, control)
                 resolution = 0.01
                 path = state.get_path(arc_radius, arc_length, control, resolution)
-                if state_collides(cspace, next_state) or path_collides(cspace, path):
+                if state_collides(cspace, next_state) or (not next_state.is_valid_state(cspace)) or path_collides(cspace, path):
                     next_state.is_obstacle = True
                     nearest_state = next_state
                 else:
@@ -180,7 +180,7 @@ def policy_to_file(policy):
         policy_file[state] = action
     with open("Policy" + '.pkl', 'wb') as f:
         pickle.dump(policy_file, f, pickle.HIGHEST_PROTOCOL)
-    return policy_file
+    return
 
 
 

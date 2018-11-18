@@ -72,8 +72,10 @@ class State:
             t += resolution
         return path
 
-    def is_valid_state():
+    def is_valid_state(self, cspace):
     # TODO: Check Bounds
+        if self.x < cspace.x_min or self.x > cspace.x_max or self.y < cspace.y_min or self.y > cspace.y_max:
+            return False
         return True
 
 class Obstacle:

@@ -47,7 +47,7 @@ if __name__ == "__main__":
 
         x_state = start # Current State
         while x_state != goal:
-            arc_length = random.gauss()
-            arc_radius = random.gauss()
+            arc_length = random.gauss(mu_al, sig_al)
+            arc_radius = random.gauss(mu_r, sig_r)
             action = policy[(x_state.x, x_state.y, x_state.theta)]
             new_state = x_state.apply_motion(arc_lengh, arc_radius, action)

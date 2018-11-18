@@ -38,7 +38,7 @@ if __name__ == "__main__":
 
     print("Extracting Policy...")
     my_policy = get_policy(my_valid_states, my_tp)
-    print(policy_to_file(my_policy))
+    policy_to_file(my_policy)
 
     # # Checking TP
     # for state, v in my_tp.items():
