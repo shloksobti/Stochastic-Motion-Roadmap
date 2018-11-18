@@ -37,17 +37,26 @@ from Needle import *
 # state = tp[state][action]
 
 
-def plan_path(policy, start_state, goal_state, cspace):
-    found_path = [start_state]
-    x_state = start_state  # Current State
-    while x_state != goal_state:
-        arc_length = random.gauss(mu_al, sig_al)
-        arc_radius = random.gauss(mu_r, sig_r)
-        action = policy[(x_state.x, x_state.y, x_state.theta)]
-        new_state = x_state.apply_motion(arc_length, arc_radius,
-                                         action)  # Something is up with this!!!! Output not in valid states.
-        print((new_state.x, new_state.y, new_state.theta))
-        if new_state.is_obstacle:
+def plan_path(policy, tp, start_state, goal_state, cspace):
+    found_path = [(start_state.x, state_state.y, start_state.theta, start_state.is_obstacle)]
+    x_state = (start_state.x, state_state.y, start_state.theta, start_state.is_obstacle)  # Current State
+    while x_state != (goal_state.x, goal_state.y, goal_state.theta, goal_state.is_obstacle):
+        action = policy[(x_state.x, x_state.y, x_state.theta)] # Suggested Action
+        stt_tp = tp[(x_state.x, x_state.y, x_state.theta, x_state.is_obstacle)][action] #{state': 0.8, state': 0.2}
+
+        range = {}
+        lower_bound = 0
+        for qp,tp in stt_tp.items():
+            range[(lower_bound,tp)] = qp
+            lower_bound = tp
+
+        r = random.uniform(0,1)
+        for k,v in range.items():
+            if k[0] < r <= k[1]:
+                new_state = v
+
+        print(new_state)
+        if new_state[3]:
             print("Path Failed!!")
             return False, found_path
         else:
@@ -62,13 +71,15 @@ if __name__ == "__main__":
     policy = {}
     with open("Policy" + '.pkl', 'rb') as f:
         policy = pickle.load(f)
-    print(policy)
 
     tp = {}
     with open("Transition Probabilities" + '.pkl', 'rb') as f:
         tp = pickle.load(f)
-        
+
     fail_count = 0
     for i in range(100):
         print("Trial: ", i+1)
         goal_reached, found_path = plan_path(policy, start, goal, cspace)
+        if not goal_reached:
+            print("Trial: ", i+1, "Failed")
+            fail_count += 1
