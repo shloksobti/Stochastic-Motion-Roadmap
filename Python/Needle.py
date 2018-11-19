@@ -4,11 +4,14 @@ import pickle
 
 def make_obstacle():
     #obstacle = Obstacle(x_min, y_min, width, height)
-    obstacle_1 = Obstacle(-15, -15, 1, 30) #Left boundary
-    obstacle_2 = Obstacle(-15, -15, 30, 1) #Bottom boundary
-    obstacle_3 = Obstacle(-15, 14, 30, 1) #Top boundary
-    obstacle_4 = Obstacle(14, -15, 1, 30) #Right boundary
-    #obstacle_5 = Obstacle(-2, -2, 4, 4)
+    obstacle_1 = Obstacle(-15, -15, 1, 30) # Left boundary
+    obstacle_2 = Obstacle(-15, -15, 30, 1) # Bottom boundary
+    obstacle_3 = Obstacle(-15, 14, 30, 1) # Top boundary
+    obstacle_4 = Obstacle(14, -15, 1, 30) # Right boundary
+
+    obstacle_5 = Obstacle(-2, -2, 4, 4) # Center Obstacle
+    obstacle_6 = Obstacle(-10, -6, 3, 7) # Random Left obstacle
+    obstacle_7 = Obstacle(-5, -8, 10, 4)
 
     obstacles = [obstacle_1, obstacle_2, obstacle_3, obstacle_4]
     return obstacles
