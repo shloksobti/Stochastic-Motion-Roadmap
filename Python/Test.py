@@ -83,13 +83,13 @@ if __name__ == "__main__":
     with open("Transition Probabilities" + '.pkl', 'rb') as f:
         tp = pickle.load(f)
 
-    goal_reached, found_path = plan_path(policy, tp, start, goal, cspace)
-    # fail_count = 0
-    # for i in range(100):
-    #     print("Trial: ", i+1)
-    #     goal_reached, found_path = plan_path(policy, tp, start, goal, cspace)
-    #     if not goal_reached:
-    #         print("Trial: ", i+1, "Failed")
-    #         fail_count += 1
-    # print("Failed: ", fail_count)
-    # print("Succeeded: ", 100 - fail_count)
+    #goal_reached, found_path = plan_path(policy, tp, start, goal, cspace)
+    fail_count = 0
+    for i in range(100):
+        print("Trial: ", i+1)
+        goal_reached, found_path = plan_path(policy, tp, start, goal, cspace)
+        if not goal_reached:
+            print("Trial: ", i+1, "Failed")
+            fail_count += 1
+    print("Failed: ", fail_count)
+    print("Succeeded: ", 100 - fail_count)

@@ -13,7 +13,7 @@ def make_obstacle():
     obstacle_6 = Obstacle(-10, -6, 3, 7) # Random Left obstacle
     obstacle_7 = Obstacle(-5, -8, 10, 4)
 
-    obstacles = [obstacle_1, obstacle_2, obstacle_3, obstacle_4]
+    obstacles = [obstacle_1, obstacle_2, obstacle_3, obstacle_4, obstacle_5, obstacle_6, obstacle_7]
     return obstacles
 
 #Planning for Needle
