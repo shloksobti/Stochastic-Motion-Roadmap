@@ -7,8 +7,8 @@ import time
 import numpy as np
 import pickle
 
-m = 20 # number of iterations to get transition probabilities
-n = 500 # number of valid samples states (50,000)
+m = 10 # number of iterations to get transition probabilities
+n = 10000 # number of valid samples states (20,000)
 
 # means and stdev of arc length and radius from the Paper
 mu_al = 0.5
@@ -41,10 +41,12 @@ def sample(cspace):
     return valid_states
 
 
-def get_nearest_neighbor(valid_states, state):
+def get_nearest_neighbor(valid_states, state, previous_state):
     min_distance = inf
     min_idx = None
     for idx, valid_state in enumerate(valid_states):
+        if valid_state == previous_state:
+            continue
         distance = state.get_distance(valid_state)
         if distance < min_distance:
             min_distance = distance
@@ -70,7 +72,7 @@ def state_collides(cspace, state):
 def path_collides(cspace, path):
     collision = False
     for state in path:
-        if state_collides(cspace, state):
+        if state_collides(cspace, state) and not state.is_valid_state(cspace):
             return True
     return collision
 
@@ -99,7 +101,7 @@ def get_transition_probabilities(cspace, valid_states, controlvect):
                     next_state.is_obstacle = True
                     nearest_state = next_state
                 else:
-                    nearest_state = get_nearest_neighbor(valid_states, next_state)
+                    nearest_state = get_nearest_neighbor(valid_states, next_state, state)
                 state_count[nearest_state] += 1
             for next_state in state_count.keys():
                 tp[state][control][next_state] = state_count[next_state]/m
