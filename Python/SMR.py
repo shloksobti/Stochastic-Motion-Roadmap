@@ -8,7 +8,7 @@ import numpy as np
 import pickle
 
 m = 10 # number of iterations to get transition probabilities
-n = 10000 # number of valid samples states (20,000)
+n = 5000 # number of valid samples states (20,000)
 
 # means and stdev of arc length and radius from the Paper
 mu_al = 0.5

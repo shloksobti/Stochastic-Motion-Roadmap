@@ -35,14 +35,25 @@ from Needle import *
 # # loop
 # action = policy[(state.x, state.y, state.theta)]
 # state = tp[state][action]
-
+def write_to_file(pathvect):
+    pathfile = open("path.txt", 'w+')
+    pathfile.write("SE2 \n")
+    for path in pathvect:
+        pathfile.write(str(path[0]) + ' ' + str(path[1]) + ' ' + str(path[2]) + '\n')
+    pathfile.close()
 
 def plan_path(policy, tp, start_state, goal_state, cspace):
     found_path = [(start_state.x, start_state.y, start_state.theta, start_state.is_obstacle)]
     x_state = (start_state.x, start_state.y, start_state.theta, start_state.is_obstacle)  # Current State
+<<<<<<< HEAD
 #    while x_state != (goal_state.x, goal_state.y, goal_state.theta, goal_state.is_obstacle):
     while not (abs(x_state[0] - goal_state.x) < 0.1 and abs(x_state[1] - goal_state.y) < 0.1):
         print(x_state)
+=======
+
+  #  while x_state != (goal_state.x, goal_state.y, goal_state.theta, goal_state.is_obstacle):
+    while not (abs(x_state[0] - goal_state.x) <=0.0 and abs(x_state[1] - goal_state.y) <= 0.0):
+>>>>>>> 1549280e974661d4b03a8375207af75617016db7
         action = policy[(x_state[0], x_state[1], x_state[2])] # Suggested Action
         stt_tp = tp[(x_state[0], x_state[1], x_state[2], x_state[3])][action] #{state': 0.8, state': 0.2}
         # print(stt_tp)
@@ -58,11 +69,13 @@ def plan_path(policy, tp, start_state, goal_state, cspace):
                 new_state = v
 
         if new_state[3]:
+            print("Path Failed!!")
             return False, found_path
         else:
             x_state = new_state
             found_path.append(x_state)
-
+            #print("found_path:, ", found_path)
+            write_to_file(found_path)
     return True, found_path
 
 
@@ -76,7 +89,11 @@ if __name__ == "__main__":
     with open("Transition Probabilities" + '.pkl', 'rb') as f:
         tp = pickle.load(f)
 
+<<<<<<< HEAD
     # goal_reached, found_path = plan_path(policy, tp, start, goal, cspace)
+=======
+    #goal_reached, found_path = plan_path(policy, tp, start, goal, cspace)
+>>>>>>> 1549280e974661d4b03a8375207af75617016db7
     fail_count = 0
     for i in range(100):
         print("Trial: ", i+1)
@@ -84,5 +101,10 @@ if __name__ == "__main__":
         if not goal_reached:
             print("Trial: ", i+1, "Failed")
             fail_count += 1
+<<<<<<< HEAD
     print("Fail Count is: ", fail_count)
     print("Success Count is: ", 100-fail_count)
+=======
+    print("Failed: ", fail_count)
+    print("Succeeded: ", 100 - fail_count)
+>>>>>>> 1549280e974661d4b03a8375207af75617016db7
