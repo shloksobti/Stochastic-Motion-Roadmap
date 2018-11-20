@@ -9,20 +9,16 @@ def make_obstacle():
     obstacle_3 = Obstacle(-15, 14, 30, 1) # Top boundary
     obstacle_4 = Obstacle(14, -15, 1, 30) # Right boundary
 
-    obstacle_5 = Obstacle(-4, 3, 8, 2) # Center Obstacle
-    obstacle_6 = Obstacle(2, -2, 2, 5) # Random Left obstacle
+    obstacle_5 = Obstacle(-4, 3, 8, 2) # Environment 2
+    obstacle_6 = Obstacle(2, -2, 2, 5) # Environment 2
 
     obstacles = [obstacle_1, obstacle_2, obstacle_3, obstacle_4, obstacle_5, obstacle_6]
     return obstacles
 
 #Planning for Needle
-# obstacles = make_obstacle()
-obstacles = make_obstacle()
-# cspace = CSpace(-15, 15, -15, 15, -pi, pi, 0, 1, obstacles)
-cspace = CSpace(-15, 15, -15, 15, -pi, pi, 0, 1, obstacles)
-
-
-controlvect = [0, 1]
+obstacles = make_obstacle() # Make Obstacles
+cspace = CSpace(-15, 15, -15, 15, -pi, pi, 0, 1, obstacles) # Generate cpace
+controlvect = [0, 1] # Define Control Vector
 
 # Actual Planning
 if __name__ == "__main__":
@@ -42,9 +38,3 @@ if __name__ == "__main__":
     print("Extracting Policy...")
     my_policy = get_policy(my_valid_states, my_tp)
     policy_to_file(my_policy)
-
-    # # Checking TP
-    # for state, v in my_tp.items():
-    #     for action, stt_p_dict in v.items():
-    #         for stt, p in stt_p_dict.items():
-    #             print("State", state.to_string(), "Action",action, "StatePrime", stt.to_string(), "Prob",p)
