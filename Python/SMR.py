@@ -114,35 +114,31 @@ def get_transition_probabilities(cspace, valid_states, controlvect):
 def value_iteration(valid_states, tp):
     epsilon = 0.00001 #use some epsilon
     diff = [inf] #initialize list
-    while max(diff) > epsilon:
+    while max(diff) > epsilon: # Convergence check.
         print("Max diff is:", max(diff))
         diff = []
         # print("Length of Valid States:",len(valid_states))
-        for idx, state in enumerate(valid_states[0:-1]):
+        for idx, state in enumerate(valid_states[0:-1]): # All valid states except goal.
             #value iteration function
 
             # Left control
             q_ast_left = tp[state][0].keys() #list of possible states acheived
             P_V_left = 0
             for stt in q_ast_left:
-                # print(stt.v)
-                P_V_left = P_V_left + tp[state][0][stt] * stt.v
+                P_V_left = P_V_left + tp[state][0][stt] * stt.v # From Bellman's equation.
 
             # Right Control
             q_ast_right = tp[state][1].keys()
             P_V_right = 0
             for stt in q_ast_right:
-                # print(stt.v)
                 P_V_right = P_V_right + (tp[state][1][stt] * stt.v)
 
             P_V = max(P_V_left, P_V_right) # Max PV for both the controls
 
-            new_v = state.r + P_V
-            #print(new_v-state.v)
-            diff.append(new_v - state.v)
-            # Exclude the goal state and obstacle state from updating V
-            state.v = new_v
-            # print("Value of State" + str(idx+1) + ":" + str(float(state.v)))
+            new_v = state.r + P_V # Bellman's Equation
+            diff.append(new_v - state.v) # Update difference to check convergence
+
+            state.v = new_v # Update value.
 
     return
 
@@ -165,6 +161,7 @@ def get_policy(valid_states, tp):
         # tp = {state1 : {action1: {state1' : 0.8}, action2: {state1': 0.8}}, state2: {action2: {state2': TP2}}}
     return policy
 
+# Method that outputs TP as a pickle file.
 def tp_to_file(tp):
     tp_file = {}
     for state, value in tp.items():
@@ -177,6 +174,7 @@ def tp_to_file(tp):
         pickle.dump(tp_file, f, pickle.HIGHEST_PROTOCOL)
     return
 
+# Method that outputs Policy as a pickle file.
 def policy_to_file(policy):
     policy_file = {}
     for k,v in policy.items():
@@ -186,9 +184,3 @@ def policy_to_file(policy):
     with open("Policy" + '.pkl', 'wb') as f:
         pickle.dump(policy_file, f, pickle.HIGHEST_PROTOCOL)
     return
-
-
-
-def simulate_path(cspace, valid_states, policy):
-    path = []
-    return path
