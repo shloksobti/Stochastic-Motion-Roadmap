@@ -8,7 +8,7 @@ import numpy as np
 import pickle
 
 m = 10 # number of iterations to get transition probabilities
-n = 5000 # number of valid samples states (20,000)
+n = 20000 # number of valid samples states (20,000)
 
 # means and stdev of arc length and radius from the Paper
 mu_al = 0.5
@@ -151,15 +151,18 @@ def get_policy(valid_states, tp):
     # Extract policy from TP map
     policy = {}
     for state in valid_states:
+
         max_v = 0
         best_action = None
+        p = 0
         for action,v in tp[state].items():
             for q_prime, prob in v.items():
-                if q_prime.v >= max_v:
+                if q_prime.v >= max_v and prob > p:
                     best_action = action
                     max_v = q_prime.v
+                    p = prob
         policy[state] = best_action
-        # tp = {state1 : {action1: {state1' : TP1}}, state2: {action2: {state2': TP2}}}
+        # tp = {state1 : {action1: {state1' : 0.8}, action2: {state1': 0.8}}, state2: {action2: {state2': TP2}}}
     return policy
 
 def tp_to_file(tp):
