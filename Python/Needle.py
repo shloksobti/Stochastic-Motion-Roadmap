@@ -9,11 +9,10 @@ def make_obstacle():
     obstacle_3 = Obstacle(-15, 14, 30, 1) # Top boundary
     obstacle_4 = Obstacle(14, -15, 1, 30) # Right boundary
 
-    obstacle_5 = Obstacle(-2, -2, 4, 4) # Center Obstacle
-    obstacle_6 = Obstacle(-10, -6, 3, 7) # Random Left obstacle
-    obstacle_7 = Obstacle(-5, -8, 10, 4)
+    obstacle_5 = Obstacle(-4, 3, 8, 2) # Center Obstacle
+    obstacle_6 = Obstacle(2, -2, 2, 5) # Random Left obstacle
 
-    obstacles = [obstacle_1, obstacle_2, obstacle_3, obstacle_4, obstacle_5, obstacle_6, obstacle_7]
+    obstacles = [obstacle_1, obstacle_2, obstacle_3, obstacle_4, obstacle_5, obstacle_6]
     return obstacles
 
 #Planning for Needle
