@@ -6,7 +6,7 @@ In the real world, these is a lot of uncertainty in the robot's environment, its
 ## Cloning the Repository and Installing Dependencies
 To clone the repository through https:
 ```
-git clone https://github.com/shloksobti/CS450-Project-5
+git clone https://github.com/shloksobti/Stochastic-Motion-Roadmap.git
 ```
 This repository is a private repository, so contact sss10@rice.edu for access.
 
